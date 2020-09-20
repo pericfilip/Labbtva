@@ -1,16 +1,12 @@
 package com.company;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
-    static int rakna = 0;
-
     public static void main(String[] args) {
-        File startingFolder = new File("testData");
+        File startingFolder = new File("./");
         Scanner anv = new Scanner(System.in);
 
         String letastring;
@@ -21,7 +17,7 @@ public class Main {
         try {
             printInfo(startingFolder, letastring);
         } catch (Exception e) {
-            System.out.println("Oops");
+            System.out.println("Något har blivit fel");
             e.printStackTrace();
         }
 
@@ -29,7 +25,7 @@ public class Main {
     public static void printInfo(File file, String string) {
         try{
         if (file.isDirectory()) {
-            File [] folderCon = file.listFiles();
+            File[] folderCon = file.listFiles();
             for(File convag : folderCon){
                 printInfo(convag, string);
             }
@@ -37,16 +33,18 @@ public class Main {
             Scanner fileScan = new Scanner(file);
 
             while(fileScan.hasNextLine()) {
-                fileScan.nextLine();
-                if(string.equals(fileScan.findInLine(string))) {
-                    System.out.println(file.getCanonicalPath());
-                    rakna++;
+                String fileSC = fileScan.nextLine();
+                String filescanLow = fileSC.toLowerCase();
+
+                if (filescanLow.contains(string.toLowerCase())) {
+                    System.out.println("Funnen i följande: " + file.getCanonicalPath());
                     return;
                 }
             }
+            fileScan.close();
         }
             if(!file.canRead()) {
-                System.err.println("Fel: Kan inte läsa " + file.getCanonicalPath());
+                System.err.println("ERROR: Kan inte läsa " + file.getCanonicalPath());
             }
         } catch (Exception e) {
             e.printStackTrace();
