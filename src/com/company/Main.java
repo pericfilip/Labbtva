@@ -15,9 +15,7 @@ public class Main {
         letastring = anv.next();
         System.out.println("----------");
 
-
-            printInfo(startingFolder, letastring);
-
+        printInfo(startingFolder, letastring);
     }
 
     public static void printInfo(File file, String string) {
@@ -37,9 +35,7 @@ public class Main {
                     if (filescanLow.contains(string.toLowerCase())) {
                         System.out.println("Funnen i följande: " + file.getCanonicalPath());
                     }
-                        
                 }
-
                 fileScan.close();
             }
             if(!file.canRead()) {
